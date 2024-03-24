@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class Databases {
@@ -38,19 +40,54 @@ public class Databases {
         return true;
 
     }
-
-    public boolean usernameAvailable (String username) {
+    public boolean deleteStudent(String id) {
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
-                            "SELECT users.username " +
-                                    "FROM users WHERE username = ? ");
-            preparedStatement.setString(1, username);
+                            "DELETE FROM students WHERE id = ?");
+            preparedStatement.setString(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+
+    public List<Integer> showStudentGrade(String id) {
+        List<Integer> grades = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "SELECT grade FROM courses WHERE student_id = ?");
+            preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return !resultSet.next();
+            while (resultSet.next()) {
+                grades.add(resultSet.getInt("grade"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return grades;
+    }
+
+
+    public double getAverage(String id) {
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "SELECT COUNT(grade) AS avg_grade FROM courses WHERE student_id = ?");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble("avg_grade");
+            }
+            return 8.0; // Return a default value if no result is found
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
 }
