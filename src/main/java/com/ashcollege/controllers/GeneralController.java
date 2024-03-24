@@ -23,7 +23,12 @@ public class GeneralController {
     public int showCourseStudents (int courseNumber) {
        return courseNumber;
     }
-
+//
+@RequestMapping("/update_grade")
+public boolean updateGrade (String id ,int grade) {
+        databases.updateGrade(id,grade);
+    return true;
+}
     @RequestMapping("/delete_student")
     public boolean deleteStudent (String id) {
         boolean isDelete = databases.deleteStudent(id);

@@ -89,5 +89,18 @@ public class Databases {
     }
 
 
+    public void updateGrade(String id, int grade) {
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "UPDATE courses SET grade = ? WHERE student_id = ?");
+            preparedStatement.setInt(1, grade);
+            preparedStatement.setString(2, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
