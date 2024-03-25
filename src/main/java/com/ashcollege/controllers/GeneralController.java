@@ -20,8 +20,9 @@ public class GeneralController {
     }
 
     @RequestMapping("/show_course_students")
-    public int showCourseStudents (int courseNumber) {
-       return courseNumber;
+    public boolean showCourseStudents (int courseNumber) {
+       // databases.showCourseStudents(courseNumber)
+       return true;
     }
 //
 @RequestMapping("/update_grade")
