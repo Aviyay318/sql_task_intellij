@@ -47,8 +47,14 @@ public boolean updateGrade (String id ,int grade) {
         boolean isAdd =  databases.addStudent(student);
         return isAdd;
     }
-    //
-
+    //updateId:"",
+    //      updateName:"",
+    //      updatePhone:""
+    @RequestMapping("/update_student_details")
+    public boolean updateStudentDetails (String updateId ,String updateName,String updatePhone) {
+        databases.updateStudentDetails(updateId,updateName,updatePhone);
+        return true;
+    }
 
 
 }

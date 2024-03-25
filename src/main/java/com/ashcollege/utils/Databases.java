@@ -103,4 +103,19 @@ public class Databases {
         }
     }
 
+    public void updateStudentDetails(String updateId, String updateName, String updatePhone) {
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "UPDATE students SET name = ?, phone = ? WHERE id = ?");
+            preparedStatement.setString(1, updateName);
+            preparedStatement.setString(2, updatePhone);
+            preparedStatement.setString(3, updateId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
