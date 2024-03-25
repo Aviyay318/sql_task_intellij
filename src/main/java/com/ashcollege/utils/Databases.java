@@ -118,4 +118,21 @@ public class Databases {
         }
     }
 
+    public List<Integer> showCourseStudents(String courseNumberId) {
+        List<Integer> studentIds = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "SELECT student_id FROM courses WHERE course_number = ?");
+            preparedStatement.setString(1, courseNumberId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                studentIds.add(resultSet.getInt("student_id"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return studentIds;
+    }
+
 }
