@@ -118,13 +118,13 @@ public class Databases {
         }
     }
 
-    public List<Integer> showCourseStudents(String courseNumberId) {
+    public List<Integer> showCourseStudents(int courseNumber) {
         List<Integer> studentIds = new ArrayList<>();
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
                             "SELECT student_id FROM courses WHERE course_number = ?");
-            preparedStatement.setString(1, courseNumberId);
+            preparedStatement.setInt(1, courseNumber);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 studentIds.add(resultSet.getInt("student_id"));

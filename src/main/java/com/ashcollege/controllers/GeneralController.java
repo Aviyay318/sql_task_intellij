@@ -19,9 +19,9 @@ public class GeneralController {
         return grades;
     }
 
-    @RequestMapping("/show_course_students")
-    public  List<Integer> showCourseStudents (String courseNumberId) {
-        List<Integer> studentIds=  databases.showCourseStudents(courseNumberId);
+    @RequestMapping("/show_students_in_courses")
+    public  List<Integer> showStudentsInCourses (int courseNumber) {
+        List<Integer> studentIds=  databases.showCourseStudents(courseNumber);
        return studentIds;
     }
 //
